@@ -1,0 +1,16 @@
+{
+  "id": "mig_cs23kvjujno0fvdn2qng",
+  "parentID": "mig_cs21dcl4rshpd1p6cr5g",
+  "checksum": "1:4de4d32be981dfd4d2def2773ca310e72b640887233b005276c0a24d084ffa84",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "owner",
+          "type": "string"
+        },
+        "table": "pages"
+      }
+    }
+  ]
+}

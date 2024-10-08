@@ -1,0 +1,22 @@
+{
+  "id": "mig_cs21dcl4rshpd1p6cr5g",
+  "parentID": "mig_cs1t5r22go8te7ad4abg",
+  "checksum": "1:00922231be1e655df6276b692ba7e506a226eea20793fd8bd1ebd158e82fc720",
+  "operations": [
+    {
+      "addTable": {
+        "table": "pages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "uri",
+          "type": "string",
+          "unique": true
+        },
+        "table": "pages"
+      }
+    }
+  ]
+}

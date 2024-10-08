@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Victor-Fazekas-s-workspace-i7on84.us-east-1.xata.sh/db/linkify",
+  "codegen": {
+    "output": "src/lib/xata.ts"
+  }
+}
