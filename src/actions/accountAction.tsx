@@ -1,8 +1,8 @@
 "use server";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 const xata = new XataClient();
 

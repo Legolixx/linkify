@@ -1,5 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import AccountSettingsForm from "@/components/forms/AccountSettingsForm";
+import { authOptions } from "@/lib/authOptions";
 import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

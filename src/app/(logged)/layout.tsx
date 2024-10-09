@@ -4,9 +4,9 @@ import "../globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import SideBar from "@/components/SideBar";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { XataClient } from "@/lib/xata";
+import { authOptions } from "@/lib/authOptions";
 
 const xata = new XataClient();
 

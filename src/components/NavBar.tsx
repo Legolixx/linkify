@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { AlignJustify, LinkIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogoutButton from "./buttons/logoutButton";
 import { XataClient } from "@/lib/xata";
+import { authOptions } from "@/lib/authOptions";
 
 const xata = new XataClient();
 

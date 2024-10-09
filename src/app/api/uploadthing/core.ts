@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // Create an instance of Uploadthing
 const f = createUploadthing();

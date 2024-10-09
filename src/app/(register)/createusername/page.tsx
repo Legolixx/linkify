@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { XataClient } from "@/lib/xata";
 import UserNameForm from "@/components/forms/UserNameForm";
+import { authOptions } from "@/lib/authOptions";
 
 interface AccountPageProps {
   searchParams: {
