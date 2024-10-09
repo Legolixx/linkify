@@ -12,11 +12,14 @@ const xata = new XataClient();
 export default async function NavBar() {
   const session = await getServerSession(authOptions);
 
-  const userName = await xata.db.pages
-    .filter({
-      owner: session?.user?.email as string,
-    })
-    .getMany();
+  // Ensure session is present
+  const userName = session
+    ? await xata.db.pages
+        .filter({
+          owner: session?.user?.email as string,
+        })
+        .getMany()
+    : [];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background shadow-sm">
@@ -64,9 +67,13 @@ export default async function NavBar() {
             </>
           ) : (
             <div className="hidden md:inline-flex gap-4 items-center">
-              <a href={`/account/${userName[0].uri}`}>
-                Hello, {session.user?.name}
-              </a>
+              {userName[0]?.uri ? (
+                <a href={`/account/${userName[0].uri}`}>
+                  Hello, {session.user?.name}
+                </a>
+              ) : (
+                <span>Hello, {session.user?.name}</span> // Fallback if no page record
+              )}
               <LogoutButton />
             </div>
           )}
@@ -113,9 +120,13 @@ export default async function NavBar() {
                     </>
                   ) : (
                     <>
-                      <a href={`/account/${userName[0].uri}''`}>
-                        Hello, {session.user?.name}
-                      </a>
+                      {userName[0]?.uri ? (
+                        <a href={`/account/${userName[0].uri}`}>
+                          Hello, {session.user?.name}
+                        </a>
+                      ) : (
+                        <span>Hello, {session.user?.name}</span> // Fallback if no page record
+                      )}
                       <LogoutButton />
                     </>
                   )}
