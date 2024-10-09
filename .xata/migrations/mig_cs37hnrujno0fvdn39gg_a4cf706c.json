@@ -1,0 +1,16 @@
+{
+  "id": "mig_cs37hnrujno0fvdn39gg",
+  "parentID": "mig_cs2ret22go8te7ad4khg",
+  "checksum": "1:a4cf706cf56339a16bc187791a9e9342870bb945624315dc0074007100639e77",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "bgType",
+          "type": "string"
+        },
+        "table": "pages"
+      }
+    }
+  ]
+}

@@ -78,6 +78,9 @@ const tables = [
       { name: "displayName", type: "string" },
       { name: "location", type: "string" },
       { name: "bio", type: "string" },
+      { name: "bgType", type: "string" },
+      { name: "bgColor", type: "string" },
+      { name: "bgImage", type: "string" },
     ],
   },
 ] as const;

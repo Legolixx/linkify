@@ -1,0 +1,16 @@
+{
+  "id": "mig_cs380654rshpd1p6ddog",
+  "parentID": "mig_cs37hnrujno0fvdn39gg",
+  "checksum": "1:345480c5c71e4a269cc5bda1e15172512d34a4dac1c8de88f289d4ec424a0e76",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "bgColor",
+          "type": "string"
+        },
+        "table": "pages"
+      }
+    }
+  ]
+}

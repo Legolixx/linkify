@@ -14,7 +14,7 @@ export const authOptions = {
     }),
   ],
 };
-
+    
 // Handler for the Next.js API route
 const handler = NextAuth(authOptions);
 

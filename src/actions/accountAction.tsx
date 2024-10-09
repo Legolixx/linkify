@@ -24,13 +24,27 @@ export async function saveAccountSettingsAction(formData: FormData) {
     const displayName = formData.get("displayName") as string;
     const location = formData.get("location") as string;
     const bio = formData.get("bio") as string;
+    const bgType = formData.get("bgType") as string;
+    const bgImage = formData.get("bgImage") as string | null;
+    const bgColor = formData.get("bgColor") as string | null;
 
-    await xata.db.pages.update(accountID, {
+    const updateData: Record<string, string | null> = {
       displayName,
       location,
       bio,
-    });
+      bgType,
+    };
+
+    if (bgColor) {
+      updateData.bgColor = bgColor;
+    }
+    if (bgImage) {
+      updateData.bgImage = bgImage;
+    }
+
+    await xata.db.pages.update(accountID, updateData);
     return true;
   }
+
   return false;
 }

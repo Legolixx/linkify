@@ -173,8 +173,19 @@
         {
           "name": "bio",
           "type": "string"
+        },
+        {
+          "name": "bgType",
+          "type": "string"
+        },
+        {
+          "name": "bgColor",
+          "type": "string"
+        },
+        {
+          "name": "bgImage",
+          "type": "string"
         }
-        
       ]
     }
   ]
