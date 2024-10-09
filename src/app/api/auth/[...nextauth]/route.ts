@@ -7,6 +7,7 @@ const client = new XataClient();
 
     
 const handler = NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: XataAdapter(client),
   providers: [
     GoogleProvider({
