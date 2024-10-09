@@ -5,7 +5,7 @@ import { XataClient } from "@/lib/xata";
 
 const client = new XataClient();
 
-const authOptions = {
+export const authOptions = {
   adapter: XataAdapter(client),
   providers: [
     GoogleProvider({
@@ -15,8 +15,8 @@ const authOptions = {
   ],
 };
 
-
+// Handler for the Next.js API route
 const handler = NextAuth(authOptions);
 
-
+// Export the handler for both GET and POST methods
 export { handler as GET, handler as POST };
