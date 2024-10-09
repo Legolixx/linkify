@@ -24,11 +24,11 @@ export default function HeroForm({ user }: HeroFormProps) {
 
     if (username.length > 5) {
       if (user) {
-        router.push(`account?desiredUsername=${username}`);
+        router.push(`createusername?desiredUsername=${username}`);
       } else {
         await signIn("google", {
           redirect: true,
-          callbackUrl: `/account?desiredUsername=${username}`,
+          callbackUrl: `/createusername?desiredUsername=${username}`,
         });
       }
     }

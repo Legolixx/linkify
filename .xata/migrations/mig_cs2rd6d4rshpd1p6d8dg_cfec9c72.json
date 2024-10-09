@@ -1,0 +1,16 @@
+{
+  "id": "mig_cs2rd6d4rshpd1p6d8dg",
+  "parentID": "mig_cs2rd0l4rshpd1p6d8cg",
+  "checksum": "1:cfec9c72c04737317ae6328445a32ea44d7f4958f2c434f712c7fac33221bd91",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "bio",
+          "type": "text"
+        },
+        "table": "pages"
+      }
+    }
+  ]
+}

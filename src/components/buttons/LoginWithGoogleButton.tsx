@@ -12,7 +12,7 @@ export default function LoginWithGoogleButton() {
       className="flex gap-3 justify-center p-5"
       onClick={() => signIn('google', {
         redirect: true,
-        callbackUrl: "/"
+        callbackUrl: "/createusername"
       })}
     >
       <Image src="/googleIcon.svg" width={20} height={20} alt="google_icon" />

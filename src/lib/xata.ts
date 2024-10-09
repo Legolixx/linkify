@@ -75,6 +75,9 @@ const tables = [
     columns: [
       { name: "uri", type: "string", unique: true },
       { name: "owner", type: "string" },
+      { name: "displayName", type: "string" },
+      { name: "location", type: "string" },
+      { name: "bio", type: "string" },
     ],
   },
 ] as const;

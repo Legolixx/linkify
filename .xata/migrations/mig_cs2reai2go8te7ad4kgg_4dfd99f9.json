@@ -1,0 +1,13 @@
+{
+  "id": "mig_cs2reai2go8te7ad4kgg",
+  "parentID": "mig_cs2re8rujno0fvdn34jg",
+  "checksum": "1:4dfd99f967646d6f846eda2dd753fad3aaa2a6ce725b4b274ce475b470d9a6d9",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "teste",
+        "table": "pages"
+      }
+    }
+  ]
+}

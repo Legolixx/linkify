@@ -161,7 +161,20 @@
           "name": "owner",
           "type": "string",
           "required": true
+        },
+        {
+          "name": "displayName",
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "name": "bio",
+          "type": "string"
         }
+        
       ]
     }
   ]

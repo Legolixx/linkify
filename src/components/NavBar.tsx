@@ -5,11 +5,18 @@ import { AlignJustify, LinkIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogoutButton from "./buttons/logoutButton";
+import { XataClient } from "@/lib/xata";
 
-export default async function Component() {
+const xata = new XataClient();
+
+export default async function NavBar() {
   const session = await getServerSession(authOptions);
 
-  // console.log(session);
+  const userName = await xata.db.pages
+    .filter({
+      owner: session?.user?.email as string,
+    })
+    .getMany();
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background shadow-sm">
@@ -57,7 +64,9 @@ export default async function Component() {
             </>
           ) : (
             <div className="hidden md:inline-flex gap-4 items-center">
-              Hello, {session.user?.name}
+              <a href={`/account/${userName[0].uri}`}>
+                Hello, {session.user?.name}
+              </a>
               <LogoutButton />
             </div>
           )}
@@ -96,13 +105,17 @@ export default async function Component() {
                   {!session ? (
                     <>
                       <a href="/login">
-                        <Button className="flex w-full" variant="outline">Sign In</Button>
+                        <Button className="flex w-full" variant="outline">
+                          Sign In
+                        </Button>
                       </a>
                       <Button size="sm">Sign Up</Button>
                     </>
                   ) : (
                     <>
-                      Hello, {session.user?.name}
+                      <a href={`/account/${userName[0].uri}''`}>
+                        Hello, {session.user?.name}
+                      </a>
                       <LogoutButton />
                     </>
                   )}

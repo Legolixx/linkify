@@ -1,0 +1,52 @@
+{
+  "id": "mig_cs2ret22go8te7ad4khg",
+  "parentID": "mig_cs2reai2go8te7ad4kgg",
+  "checksum": "1:b679d02e8f8dfa77d6f71a1f68b48b942b34f533b179020ef533356822c419e0",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "displayName",
+        "table": "pages"
+      }
+    },
+    {
+      "removeColumn": {
+        "column": "location",
+        "table": "pages"
+      }
+    },
+    {
+      "removeColumn": {
+        "column": "bio",
+        "table": "pages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "displayName",
+          "type": "string"
+        },
+        "table": "pages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "location",
+          "type": "string"
+        },
+        "table": "pages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "bio",
+          "type": "string"
+        },
+        "table": "pages"
+      }
+    }
+  ]
+}

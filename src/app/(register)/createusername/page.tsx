@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { XataClient } from "@/lib/xata";
 import UserNameForm from "@/components/forms/UserNameForm";
@@ -14,6 +14,16 @@ const xata = new XataClient();
 export default async function AccountPage({ searchParams }: AccountPageProps) {
   const session = await getServerSession(authOptions);
   const { desiredUsername } = searchParams;
+
+  const alredyHavePage = await xata.db.pages
+    .filter({
+      owner: session?.user?.email as string,
+    })
+    .getMany();
+
+  if (alredyHavePage.length > 0) {
+    redirect(`/account/${alredyHavePage[0].uri}`);
+  }
 
   async function handleFormSubmit(formData: FormData): Promise<string> {
     "use server";
