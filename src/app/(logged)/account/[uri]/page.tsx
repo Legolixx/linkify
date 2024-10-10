@@ -1,4 +1,5 @@
 import AccountSettingsForm from "@/components/forms/AccountSettingsForm";
+import AccountSocialForm from "@/components/forms/AccountSocialForm";
 import { authOptions } from "@/lib/authOptions";
 import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
@@ -28,6 +29,7 @@ async function AccountPage({ params: { uri } }: PageProps) {
   return (
     <div>
       <AccountSettingsForm user={userStringfy} img={session?.user?.image} />
+      <AccountSocialForm />
     </div>
   );
 }

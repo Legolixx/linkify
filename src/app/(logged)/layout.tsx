@@ -38,7 +38,6 @@ export default async function AccountLayout({
     })
     .getFirst();
 
-
   if (!session) {
     redirect("/login");
   }
@@ -54,10 +53,9 @@ export default async function AccountLayout({
               session.user as { name: string; email: string; image: string }
             }
             userName={userName?.uri as string}
+            avatarImage={userName?.avatarImage as string}
           />
-          <div className="grow">
-            <div className="bg-white m-4 p-4 shadow">{children}</div>
-          </div>
+          <div className="grow">{children}</div>
         </main>
         <Toaster />
       </body>

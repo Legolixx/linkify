@@ -26,6 +26,7 @@ export async function saveAccountSettingsAction(formData: FormData) {
     const bio = formData.get("bio") as string;
     const bgType = formData.get("bgType") as string;
     const bgImage = formData.get("bgImage") as string | null;
+    const avatarImage = formData.get("avatarImage") as string | null;
     const bgColor = formData.get("bgColor") as string | null;
 
     const updateData: Record<string, string | null> = {
@@ -40,6 +41,9 @@ export async function saveAccountSettingsAction(formData: FormData) {
     }
     if (bgImage) {
       updateData.bgImage = bgImage;
+    }
+    if(avatarImage) {
+      updateData.avatarImage = avatarImage
     }
 
     await xata.db.pages.update(accountID, updateData);

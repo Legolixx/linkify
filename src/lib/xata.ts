@@ -81,18 +81,20 @@ const tables = [
       { name: "bgType", type: "string" },
       { name: "bgColor", type: "string" },
       { name: "bgImage", type: "string" },
+      { name: "avatarImage", type: "text" },
     ],
   },
   {
     name: "uploads_by_user",
     columns: [
+      { name: "img_keys", type: "multiple" },
       {
         name: "userEmail",
         type: "text",
         notNull: true,
         defaultValue: "teste@teste.com",
       },
-      { name: "img_keys", type: "multiple" },
+      { name: "img_avatar_keys", type: "multiple" },
     ],
   },
 ] as const;

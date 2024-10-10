@@ -14,9 +14,14 @@ type UserInfoProps = {
     image: string;
   };
   userName: string;
+  avatarImage: string;
 };
 
-export default function SideBar({ user, userName }: UserInfoProps) {
+export default function SideBar({
+  user,
+  userName,
+  avatarImage,
+}: UserInfoProps) {
   const pathname = usePathname();
 
   const getLinkClass = (path: string) => {
@@ -29,7 +34,7 @@ export default function SideBar({ user, userName }: UserInfoProps) {
         <div className="flex flex-col gap-3 items-center mb-16 mt-8">
           <Image
             className="rounded-full"
-            src={user.image}
+            src={avatarImage || user.image}
             alt={user.name}
             width={100}
             height={100}
