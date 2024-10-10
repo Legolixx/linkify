@@ -32,14 +32,16 @@ export default function SideBar({
     <aside className="bg-primary w-1/4 md:w-1/5 xl:w-1/6 p-4 text-white flex flex-col justify-between min-h-screen">
       <div>
         <div className="flex flex-col gap-3 items-center mb-16 mt-8">
-          <Image
-            className="rounded-full"
-            src={avatarImage || user.image}
-            alt={user.name}
-            width={100}
-            height={100}
-            priority
-          />
+          <div className="w-32 h-32 rounded-full shadow-lg shadow-black/50 overflow-hidden bg-cover bg-center">
+            <Image
+              className="w-full h-full object-cover"
+              src={avatarImage || user.image}
+              alt={user.name}
+              width={100}
+              height={100}
+              priority
+            />
+          </div>
           <p className="text-[0.6em] md:text-[1em] text-center">{user.name}</p>
         </div>
         <nav className="flex flex-col items-center gap-10">
