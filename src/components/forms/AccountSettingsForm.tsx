@@ -173,7 +173,7 @@ export default function AccountSettingsForm({
             id="nameIn"
             type="text"
             placeholder="Victor Fazekas"
-            maxLength={20}
+            maxLength={100}
           />
           <label className="input-label" htmlFor="locationIn">
             Location
@@ -184,7 +184,7 @@ export default function AccountSettingsForm({
             id="locationIn"
             type="text"
             placeholder="Somewhere over the rainbow"
-            maxLength={40}
+            maxLength={100}
           />
           <label className="input-label" htmlFor="bioIn">
             Bio

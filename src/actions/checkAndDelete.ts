@@ -29,12 +29,8 @@ export async function CheckAndDeleteImage(email: string) {
         }
       );
 
-      console.log("Imagens deletadas:", imagesToDelete);
-      console.log("Registro atualizado:", updatedRecord);
-
-      return updatedRecord;
+      return JSON.parse(JSON.stringify(updatedRecord));
     } else {
-      console.log("Nenhuma imagem extra para deletar.");
       return JSON.parse(JSON.stringify(userRecord));
     }
   } else {
