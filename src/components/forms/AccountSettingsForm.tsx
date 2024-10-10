@@ -98,7 +98,7 @@ export default function AccountSettingsForm({
     <div className="-m-4">
       <form onSubmit={saveAccountSettings}>
         <div
-          className="py-[3.3em] flex justify-center items-center bg-cover"
+          className="py-[3.3em] min-h-[300px] flex justify-center items-center bg-cover bg-center"
           style={
             user[0].bgType === "color"
               ? { backgroundColor: user[0].bgColor || "#2196F3" }
@@ -108,7 +108,7 @@ export default function AccountSettingsForm({
                 }
           }
         >
-          <div className="relative -top-5">
+          <div className="relative -top-5 opacity-75">
             <RadioTogglers
               defaultValue={user[0].bgType || "image"}
               options={[
@@ -125,7 +125,7 @@ export default function AccountSettingsForm({
                 />
               </div>
             ) : (
-              <div className="flex m-2 justify-center bg-primary rounded-full items-center gap-3 text-white text-sm">
+              <div className="flex m-2 justify-center bg-primary rounded-full items-center gap-3 text-white text-sm cursor-pointer opacity-55">
                 <CloudUpload />
                 <UploadButton
                   className="flex mb-2 mr-3"
