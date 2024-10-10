@@ -7,6 +7,7 @@ import {
   Save,
   Loader2Icon,
   CloudUpload,
+  Camera,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -128,7 +129,7 @@ export default function AccountSettingsForm({
               <div className="flex m-2 justify-center bg-primary rounded-full items-center gap-3 text-white text-sm cursor-pointer opacity-55">
                 <CloudUpload />
                 <UploadButton
-                  className="flex mb-2 mr-3"
+                  className="flex pb-2"
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
                     setBackGroundImg(res[0].url);
@@ -153,16 +154,28 @@ export default function AccountSettingsForm({
           </div>
         </div>
         <div className="flex justify-center">
-          <Image
-            className="rounded-full relative -top-16 border-4 border-white shadow-lg shadow-black/50 -mb-[4.5em]"
-            src={img as string}
-            alt="avatar"
-            width={128}
-            height={128}
-            priority
-            quality={100}
-          />
+          <div className="relative -top-12">
+            <Image
+              className="rounded-full border-4 border-white shadow-lg shadow-black/50"
+              src={img as string}
+              alt="avatar"
+              width={128}
+              height={128}
+              priority
+              quality={100}
+            />
+            <div className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 top-20">
+              <label className="cursor-pointer">
+                <Camera className="text-primary" />
+                <UploadButton
+                  endpoint="imageUploader"
+                  className="opacity-0 w-full h-full absolute inset-0"
+                />
+              </label>
+            </div>
+          </div>
         </div>
+
         <div className="p-4">
           <label className="input-label" htmlFor="nameIn">
             Display name
