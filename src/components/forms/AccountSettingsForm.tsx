@@ -11,10 +11,12 @@ import {
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { saveAccountSettingsAction } from "@/actions/accountAction";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react"; // useCallback importado
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { UploadButton } from "@/lib/uploadthing";
+import { CheckAndDeleteImage } from "@/actions/checkAndDelete";
+import StoreImgKeys from "@/actions/storeImgKeys";
 
 type XataMetadata = {
   createdAt: Date;
@@ -45,11 +47,22 @@ export default function AccountSettingsForm({
   img: string | null | undefined;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [key, setKey] = useState("");
   const [backgroundImg, setBackGroundImg] = useState(
     user[0].bgImage || "/defaultBanner.png"
   );
   const { toast } = useToast();
   const router = useRouter();
+
+  const storeImg = useCallback(async () => {
+    if (key) {
+      await StoreImgKeys(key);
+    }
+  }, [key]);
+
+  useEffect(() => {
+    storeImg();
+  }, [storeImg]);
 
   async function saveAccountSettings(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -62,6 +75,13 @@ export default function AccountSettingsForm({
 
     try {
       await saveAccountSettingsAction(formData);
+      await CheckAndDeleteImage(user[0].owner as string);
+
+      toast({
+        title: "Success",
+        description: "User information saved successfully!",
+        variant: "success",
+      });
     } catch (error) {
       toast({
         title: "Error",
@@ -70,14 +90,8 @@ export default function AccountSettingsForm({
       });
     } finally {
       setIsLoading(false);
-      toast({
-        title: "Success",
-        description: "User information saved successfully!",
-        variant: "success",
-      });
+      router.refresh();
     }
-
-    router.refresh();
   }
 
   return (
@@ -118,6 +132,7 @@ export default function AccountSettingsForm({
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
                     setBackGroundImg(res[0].url);
+                    setKey(res[0].key);
                     toast({
                       title: "Success",
                       description: "Image uploaded!",

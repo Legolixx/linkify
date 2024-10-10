@@ -38,7 +38,6 @@ export default async function AccountLayout({
     })
     .getFirst();
 
-  console.log(userName?.uri);
 
   if (!session) {
     redirect("/login");

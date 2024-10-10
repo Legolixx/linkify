@@ -83,6 +83,18 @@ const tables = [
       { name: "bgImage", type: "string" },
     ],
   },
+  {
+    name: "uploads_by_user",
+    columns: [
+      {
+        name: "userEmail",
+        type: "text",
+        notNull: true,
+        defaultValue: "teste@teste.com",
+      },
+      { name: "img_keys", type: "multiple" },
+    ],
+  },
 ] as const;
 
 export type SchemaTables = typeof tables;
@@ -111,6 +123,9 @@ export type NextauthSessionsRecord = NextauthSessions & XataRecord;
 export type Pages = InferredTypes["pages"];
 export type PagesRecord = Pages & XataRecord;
 
+export type UploadsByUser = InferredTypes["uploads_by_user"];
+export type UploadsByUserRecord = UploadsByUser & XataRecord;
+
 export type DatabaseSchema = {
   nextauth_users: NextauthUsersRecord;
   nextauth_accounts: NextauthAccountsRecord;
@@ -119,6 +134,7 @@ export type DatabaseSchema = {
   nextauth_users_sessions: NextauthUsersSessionsRecord;
   nextauth_sessions: NextauthSessionsRecord;
   pages: PagesRecord;
+  uploads_by_user: UploadsByUserRecord;
 };
 
 const DatabaseClient = buildClient();
