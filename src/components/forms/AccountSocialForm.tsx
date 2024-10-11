@@ -175,9 +175,14 @@ export default function AccountSocialForm(user: PagesRecord) {
         variant: "success",
       });
     }
-
     setIsLoading(false);
   };
+
+  function removeButton(b: ButtonProps) {
+    setActiveButtons((prevButtons) => {
+      return prevButtons.filter((button) => button.key !== b.key);
+    });
+  }
 
   const availableButtons = allbuttons.filter(
     (b1) => !activeButtons.find((b2) => b1.key === b2.key)
@@ -200,7 +205,11 @@ export default function AccountSocialForm(user: PagesRecord) {
               placeholder={b.placeholder}
               name={b.key}
             />
-            <Button type="button" variant="destructive">
+            <Button
+              type="button"
+              onClick={() => removeButton(b)}
+              variant="destructive"
+            >
               <Trash2Icon size={20} />
             </Button>
           </div>

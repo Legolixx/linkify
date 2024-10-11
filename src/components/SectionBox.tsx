@@ -6,6 +6,6 @@ interface SectionBoxProps {
 
 export default function SectionBox({ children }: SectionBoxProps) {
   return (
-    <div className="bg-white m-0 p-0 md:m-8 md:p-4 shadow">{children}</div>
+    <div className="bg-white m-3 p-3 md:m-8 md:p-4 shadow">{children}</div>
   );
 }
