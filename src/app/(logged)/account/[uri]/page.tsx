@@ -5,6 +5,7 @@ import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { PagesRecord } from "@/lib/xata";
+//import AccountCustomLinksForm from "@/components/forms/accountCustomLinks";
 
 type PageProps = {
   params: { uri: string };
@@ -28,10 +29,11 @@ async function AccountPage({ params: { uri } }: PageProps) {
   const user: PagesRecord = JSON.parse(JSON.stringify(page[0]));
 
   return (
-    <div>
+    <>
       <AccountSettingsForm {...user} img={session?.user?.image} />
       <AccountSocialForm {...user} />
-    </div>
+      {/* <AccountCustomLinksForm {...user} />*/}
+    </>
   );
 }
 

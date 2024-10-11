@@ -226,7 +226,7 @@ export default function AccountSocialForm(user: PagesRecord) {
               <div key={b.key} className="mb-4 flex gap-2 items-center">
                 <div className="w-48 flex gap-1 md:gap-3 items-center">
                   <GripVertical className="cursor-pointer text-primary h-4 w-4" />
-                  <div className="flex w-4 h-4 md:w-10 md:h-10">
+                  <div className="flex w-4 h-4 md:w-auto md:h-auto">
                     {b.iconsDark}
                   </div>
                   <span className="text-xs md:text-base">{b.label}</span>
@@ -264,7 +264,7 @@ export default function AccountSocialForm(user: PagesRecord) {
             </Button>
           ))}
         </div>
-        <div className="flex w-full mx-auto mt-4">
+        <div className="flex w-full mx-auto mt-8">
           <Button
             type="submit"
             className="flex w-full md:w-1/2 xl:w-1/4 mx-auto mt-4 gap-2"
