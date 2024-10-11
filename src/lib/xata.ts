@@ -82,6 +82,7 @@ const tables = [
       { name: "bgColor", type: "string" },
       { name: "bgImage", type: "string" },
       { name: "avatarImage", type: "text" },
+      { name: "buttons", type: "json", defaultValue: "{}" },
     ],
   },
   {

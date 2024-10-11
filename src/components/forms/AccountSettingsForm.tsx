@@ -19,43 +19,23 @@ import { UploadButton } from "@/lib/uploadthing";
 import { CheckAndDeleteImage } from "@/actions/checkAndDelete";
 import StoreImgKeys from "@/actions/storeImgKeys";
 import SectionBox from "../SectionBox";
+import { PagesRecord } from "@/lib/xata";
 
-type XataMetadata = {
-  createdAt: Date;
-  updatedAt: Date;
-  version: number;
+type AccountSettingsFormProps = PagesRecord & {
+  img: string | null | undefined;
 };
-
-type PageRecord = {
-  id: string;
-  owner: string | null | undefined;
-  uri: string | null | undefined;
-  displayName: string | null | undefined;
-  location: string | null | undefined;
-  bio: string | null | undefined;
-  bgType: string | null | undefined;
-  bgColor: string | null | undefined;
-  bgImage: string | null | undefined;
-  avatarImage: string | null | undefined;
-  xata: XataMetadata;
-};
-
-type PageRecordArray = PageRecord[];
 
 export default function AccountSettingsForm({
-  user,
   img,
-}: {
-  user: PageRecordArray;
-  img: string | null | undefined;
-}) {
+  ...user
+}: AccountSettingsFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [key, setKey] = useState("");
   const [avatarkey, setAvatarKey] = useState("");
   const [backgroundImg, setBackGroundImg] = useState(
-    user[0].bgImage || "/defaultBanner.png"
+    user.bgImage || "/defaultBanner.png"
   );
-  const [avatarImg, setAvatarImg] = useState(user[0].avatarImage || img);
+  const [avatarImg, setAvatarImg] = useState(user.avatarImage || img);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -90,10 +70,10 @@ export default function AccountSettingsForm({
       await saveAccountSettingsAction(formData);
 
       if (key) {
-        await CheckAndDeleteImage(user[0].owner as string, "background");
+        await CheckAndDeleteImage(user.owner as string, "background");
       }
       if (avatarImg) {
-        await CheckAndDeleteImage(user[0].owner as string, "avatar");
+        await CheckAndDeleteImage(user.owner as string, "avatar");
       }
 
       toast({
@@ -120,26 +100,26 @@ export default function AccountSettingsForm({
           <div
             className="py-[3.3em] -m-4 min-h-[300px] flex justify-center items-center bg-cover bg-center"
             style={
-              user[0].bgType === "color"
-                ? { backgroundColor: user[0].bgColor || "#2196F3" }
+              user.bgType === "color"
+                ? { backgroundColor: user.bgColor || "#2196F3" }
                 : {
                     backgroundImage:
-                      `url(${backgroundImg})` || `url(${user[0].bgImage})`,
+                      `url(${backgroundImg})` || `url(${user.bgImage})`,
                   }
             }
           >
             <div className="relative -top-5 opacity-75">
               <RadioTogglers
-                defaultValue={user[0].bgType || "image"}
+                defaultValue={user.bgType || "image"}
                 options={[
                   { name: "color", icon: <Palette />, label: "Color" },
                   { name: "image", icon: <ImageIcon />, label: "Image" },
                 ]}
               />
-              {user[0].bgType === "color" ? (
+              {user.bgType === "color" ? (
                 <div className="my-2 flex justify-center">
                   <input
-                    defaultValue={user[0].bgColor || "#2196F3"}
+                    defaultValue={user.bgColor || "#2196F3"}
                     type="color"
                     name="bgColor"
                   />
@@ -213,7 +193,7 @@ export default function AccountSettingsForm({
               Display name
             </label>
             <input
-              defaultValue={user[0].displayName as string}
+              defaultValue={user.displayName as string}
               name="displayName"
               id="nameIn"
               type="text"
@@ -224,7 +204,7 @@ export default function AccountSettingsForm({
               Location
             </label>
             <input
-              defaultValue={user[0].location as string}
+              defaultValue={user.location as string}
               name="location"
               id="locationIn"
               type="text"
@@ -235,7 +215,7 @@ export default function AccountSettingsForm({
               Bio
             </label>
             <textarea
-              defaultValue={user[0].bio as string}
+              defaultValue={user.bio as string}
               name="bio"
               id="bioIn"
               placeholder="Your bio goes here..."

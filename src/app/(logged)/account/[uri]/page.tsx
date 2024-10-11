@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/authOptions";
 import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { PagesRecord } from "@/lib/xata";
 
 type PageProps = {
   params: { uri: string };
@@ -14,22 +15,22 @@ const xata = new XataClient();
 async function AccountPage({ params: { uri } }: PageProps) {
   const session = await getServerSession(authOptions);
 
-  const userName = await xata.db.pages
+  const page = await xata.db.pages
     .filter({
       owner: session?.user?.email as string,
     })
     .getMany();
 
-  if (uri !== userName[0].uri) {
-    redirect(`/account/${userName[0].uri}`);
+  if (uri !== page[0].uri) {
+    redirect(`/account/${page[0].uri}`);
   }
 
-  const userStringfy = JSON.parse(JSON.stringify(userName));
+  const user: PagesRecord = JSON.parse(JSON.stringify(page[0]));
 
   return (
     <div>
-      <AccountSettingsForm user={userStringfy} img={session?.user?.image} />
-      <AccountSocialForm />
+      <AccountSettingsForm {...user} img={session?.user?.image} />
+      <AccountSocialForm {...user} />
     </div>
   );
 }

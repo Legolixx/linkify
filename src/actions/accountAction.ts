@@ -42,8 +42,8 @@ export async function saveAccountSettingsAction(formData: FormData) {
     if (bgImage) {
       updateData.bgImage = bgImage;
     }
-    if(avatarImage) {
-      updateData.avatarImage = avatarImage
+    if (avatarImage) {
+      updateData.avatarImage = avatarImage;
     }
 
     await xata.db.pages.update(accountID, updateData);
@@ -51,4 +51,40 @@ export async function saveAccountSettingsAction(formData: FormData) {
   }
 
   return false;
+}
+
+export async function SaveSocialButtons(formData: FormData) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      throw new Error("No active session found.");
+    }
+
+    const page = await xata.db.pages
+      .filter({ owner: session.user.email })
+      .getMany();
+
+    if (!page || page.length === 0) {
+      throw new Error("Page not found for the user.");
+    }
+
+    const pageId = page[0].id;
+
+    const buttonsToSave: { [key: string]: string } = {};
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        buttonsToSave[key] = value;
+      }
+    });
+
+    const dataToUpdate = { buttons: buttonsToSave };
+
+    await xata.db.pages.update(pageId, dataToUpdate);
+
+    return true;
+  } catch (error) {
+    console.error("Failed to save social buttons:", error);
+    return false;
+  }
 }
