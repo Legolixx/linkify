@@ -3,7 +3,7 @@
 import { useState } from "react";
 import SectionBox from "../SectionBox";
 import { Button } from "../ui/button";
-import { Loader2Icon, Plus, SaveIcon } from "lucide-react";
+import { Loader2Icon, Plus, SaveIcon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import { SaveSocialButtons } from "@/actions/accountAction";
 import { useToast } from "@/hooks/use-toast";
@@ -162,10 +162,10 @@ export default function AccountSocialForm(user: PagesRecord) {
   }
 
   const saveSocials = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setIsLoading(true);
 
-    const formData = new FormData(e.currentTarget); 
+    const formData = new FormData(e.currentTarget);
     const res = await SaveSocialButtons(formData);
 
     if (res === true) {
@@ -186,7 +186,7 @@ export default function AccountSocialForm(user: PagesRecord) {
   return (
     <SectionBox>
       <form onSubmit={saveSocials}>
-        <h2 className="text-2xl font-bold text-primary mb-4">Links</h2>
+        <h2 className="text-2xl font-bold text-primary mb-4">Social Links</h2>
         {activeButtons.map((b) => (
           <div key={b.key} className="mb-4 flex gap-2 items-center">
             <div className="w-36 flex gap-2 items-center">
@@ -200,6 +200,9 @@ export default function AccountSocialForm(user: PagesRecord) {
               placeholder={b.placeholder}
               name={b.key}
             />
+            <Button type="button" variant="destructive">
+              <Trash2Icon size={20} />
+            </Button>
           </div>
         ))}
         <div className="flex flex-wrap gap-4 mt-4 border-t pt-4">
@@ -217,7 +220,10 @@ export default function AccountSocialForm(user: PagesRecord) {
           ))}
         </div>
         <div className="flex w-full mx-auto mt-4">
-          <Button type="submit" className="flex w-full md:w-1/2 xl:w-1/4 mx-auto mt-4 gap-2">
+          <Button
+            type="submit"
+            className="flex w-full md:w-1/2 xl:w-1/4 mx-auto mt-4 gap-2"
+          >
             {isLoading ? (
               <Loader2Icon className="animate-spin" size={16} />
             ) : (
