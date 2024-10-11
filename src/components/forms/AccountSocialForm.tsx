@@ -110,7 +110,7 @@ const allbuttons = [
   {
     key: "x",
     label: "Twitter",
-    icons: <Image src="/icons/X.svg" width={24} height={24} alt="X" />,
+    icons: <Image src="/icons/x.svg" width={24} height={24} alt="X" />,
     iconsDark: <Image src="/iconsDark/X.svg" width={24} height={24} alt="X" />,
   },
   {
