@@ -149,7 +149,7 @@ export default function AccountSocialForm() {
       {activeButtons.map((b) => (
         <div key={b.key} className="mb-4 flex gap-2 items-center">
           <div className="w-36 flex gap-2 items-center">
-            {b.iconsDark}
+            <div className="flex w-4 h-4 md:w-10 md:h-10">{b.iconsDark}</div>
             <span>{b.label}</span>
           </div>
           <input type="text" />

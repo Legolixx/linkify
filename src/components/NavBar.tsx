@@ -12,7 +12,6 @@ const xata = new XataClient();
 export default async function NavBar() {
   const session = await getServerSession(authOptions);
 
-  // Ensure session is present
   const userName = session
     ? await xata.db.pages
         .filter({
@@ -72,7 +71,7 @@ export default async function NavBar() {
                   Hello, {session.user?.name}
                 </a>
               ) : (
-                <span>Hello, {session.user?.name}</span> // Fallback if no page record
+                <span>Hello, {session.user?.name}</span>
               )}
               <LogoutButton />
             </div>
@@ -125,7 +124,7 @@ export default async function NavBar() {
                           Hello, {session.user?.name}
                         </a>
                       ) : (
-                        <span>Hello, {session.user?.name}</span> // Fallback if no page record
+                        <span>Hello, {session.user?.name}</span> 
                       )}
                       <LogoutButton />
                     </>
