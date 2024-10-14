@@ -4,7 +4,6 @@ import { PagesRecord } from "@/lib/xata";
 import SectionBox from "../SectionBox";
 import { Button } from "../ui/button";
 import {
-  Cloud,
   Loader2Icon,
   PlusCircle,
   SaveIcon,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
+import { UploadButton } from "@/lib/uploadthing";
 
 type LinkType = {
   id: string;
@@ -62,19 +62,16 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                   <GripVertical className="mr-1 cursor-pointer" />
                 </div>
                 <div className="text-center">
-                  <div className="p-4 rounded-full inline-block">
-                    <Link />
-                  </div>
-                  <div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="mt-2 p-2 gap-1"
-                    >
-                      <Cloud />
-                      <span>change icon</span>
-                    </Button>
-                  </div>
+                  <label className="cursor-pointer">
+                    <Link className="text-primary bg-white flex min-w-[2em] rounded-full" />
+                    <UploadButton
+                      endpoint="imageUploader"
+                      className="opacity-0 w-full h-full absolute inset-0"
+                      onClientUploadComplete={(res) => {
+                        console.log(res);
+                      }}
+                    />
+                  </label>
                 </div>
                 <div className="grow">
                   <input type="text" placeholder="title" />

@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { saveAccountSettingsAction } from "@/actions/accountAction";
-import { useEffect, useState, useCallback } from "react"; // useCallback importado
+import { useEffect, useState, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { UploadButton } from "@/lib/uploadthing";
