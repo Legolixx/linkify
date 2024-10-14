@@ -3,12 +3,28 @@
 import { PagesRecord } from "@/lib/xata";
 import SectionBox from "../SectionBox";
 import { Button } from "../ui/button";
-import { Cloud, Loader2Icon, PlusCircle, SaveIcon } from "lucide-react";
+import {
+  Cloud,
+  Loader2Icon,
+  PlusCircle,
+  SaveIcon,
+  Link,
+  GripVertical,
+} from "lucide-react";
 import { useState } from "react";
+import { ReactSortable } from "react-sortablejs";
+
+type LinkType = {
+  key: string;
+  title: string;
+  subtitle?: string;
+  icon: string;
+  url: string;
+};
 
 export default function AccountCustomLinksForm(user: PagesRecord) {
   const [isLoading, setIsLoading] = useState(false);
-  const [links, setLinks] = useState(user.links || []);
+  const [links, setLinks] = useState<LinkType[]>(user.links || []);
 
   function save(formData: FormData) {
     setIsLoading(true);
@@ -16,10 +32,17 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
   }
 
   function addNewLink() {
-    setLinks((prev) => {
-      return (prev) => {
-        return [...prev, { title: "", subtitle: "", icon: "", url: "" }];
-      };
+    setLinks((prev: LinkType[]) => {
+      return [
+        ...prev,
+        {
+          key: Date.now().toString(),
+          title: "",
+          subtitle: "",
+          icon: "",
+          url: "",
+        },
+      ];
     });
   }
 
@@ -32,11 +55,26 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
           <span>Add new</span>
         </Button>
         <div className="">
-          {links.map((l) => (
-            <div key={l.key} className="mt-8 flex gap-2 items-center">
-              <div className="text-center">
-                <div className="bg-gray-300 p-4 rounded-s-none">
-                  <Cloud />
+          <ReactSortable list={links} setList={setLinks}>
+            {links.map((l: LinkType) => (
+              <div key={l.key} className="mt-8 flex gap-2 items-center">
+                <div>
+                  <GripVertical className="mr-1 cursor-pointer" />
+                </div>
+                <div className="text-center">
+                  <div className="p-4 rounded-full inline-block">
+                    <Link />
+                  </div>
+                  <div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="mt-2 p-2 gap-1"
+                    >
+                      <Cloud />
+                      <span>change icon</span>
+                    </Button>
+                  </div>
                 </div>
                 <div className="grow">
                   <input type="text" placeholder="title" />
@@ -44,8 +82,8 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                   <input type="text" placeholder="url" />
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </ReactSortable>
         </div>
         <div className="flex w-full mx-auto mt-8">
           <Button

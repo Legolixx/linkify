@@ -5,7 +5,7 @@ import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { PagesRecord } from "@/lib/xata";
-//import AccountCustomLinksForm from "@/components/forms/accountCustomLinks";
+import AccountCustomLinksForm from "@/components/forms/accountCustomLinks";
 
 type PageProps = {
   params: { uri: string };
@@ -32,7 +32,7 @@ async function AccountPage({ params: { uri } }: PageProps) {
     <>
       <AccountSettingsForm {...user} img={session?.user?.image} />
       <AccountSocialForm {...user} />
-      {/* <AccountCustomLinksForm {...user} />*/}
+      <AccountCustomLinksForm {...user} />
     </>
   );
 }

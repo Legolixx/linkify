@@ -83,6 +83,7 @@ const tables = [
       { name: "bgImage", type: "string" },
       { name: "avatarImage", type: "text" },
       { name: "buttons", type: "json", defaultValue: "{}" },
+      { name: "links", type: "json", defaultValue: "[]" },
     ],
   },
   {
