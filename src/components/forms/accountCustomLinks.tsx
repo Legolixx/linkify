@@ -9,6 +9,7 @@ import {
   SaveIcon,
   GripVertical,
   Camera,
+  Trash2Icon,
 } from "lucide-react";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
@@ -104,6 +105,10 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
     });
   }
 
+  function removeLink(key: string) {
+    setLinks((prevLinks) => [...prevLinks].filter((l) => l.id !== key));
+  }
+
   return (
     <SectionBox>
       <form>
@@ -166,6 +171,15 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                     type="text"
                     placeholder="url"
                   />
+                </div>
+                <div>
+                  <Button
+                    onClick={() => removeLink(l.id)}
+                    type="button"
+                    variant="destructive"
+                  >
+                    <Trash2Icon size={14} />
+                  </Button>
                 </div>
               </div>
             ))}

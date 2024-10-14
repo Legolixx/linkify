@@ -247,7 +247,7 @@ export default function AccountSocialForm(user: PagesRecord) {
                   onClick={() => removeButton(b)}
                   variant="destructive"
                 >
-                  <Trash2Icon size={20} />
+                  <Trash2Icon size={14} />
                 </Button>
               </div>
             );
