@@ -6,10 +6,16 @@ import { getServerSession } from "next-auth";
 
 const xata = new XataClient();
 
-export default async function StoreImgKeys(
-  key: string, 
-  type: "avatar" | "background" | "customLink"
-) {
+type UploadType = "avatar" | "background" | "customLink";
+type UploadsByUserRecord = {
+  img_keys?: string[];
+  img_avatar_keys?: string[];
+  custom_link_keys?: string[];
+  userEmail: string;
+  id: string;
+};
+
+export default async function StoreImgKeys(key: string, type: UploadType) {
   const session = await getServerSession(authOptions);
 
   if (!session) throw new Error("User not found");
@@ -18,7 +24,20 @@ export default async function StoreImgKeys(
     throw new Error("Invalid image key");
   }
 
-  const columnToUpdate = type === "background" ? "img_keys" : "img_avatar_keys";
+  let columnToUpdate: keyof UploadsByUserRecord;
+  switch (type) {
+    case "background":
+      columnToUpdate = "img_keys";
+      break;
+    case "avatar":
+      columnToUpdate = "img_avatar_keys";
+      break;
+    case "customLink":
+      columnToUpdate = "custom_link_keys";
+      break;
+    default:
+      throw new Error("Invalid type");
+  }
 
   const existingRecord = await xata.db.uploads_by_user
     .filter({ userEmail: session.user?.email as string })

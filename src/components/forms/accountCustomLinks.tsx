@@ -7,14 +7,17 @@ import {
   Loader2Icon,
   PlusCircle,
   SaveIcon,
-  Link,
   GripVertical,
+  Camera,
 } from "lucide-react";
-import { useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { UploadButton } from "@/lib/uploadthing";
+import StoreImgKeys from "@/actions/storeImgKeys";
+import Image from "next/image";
+import { SavePageLinks } from "@/actions/accountAction";
 
-type LinkType = {
+export type LinkType = {
   id: string;
   title: string;
   subtitle?: string;
@@ -25,10 +28,31 @@ type LinkType = {
 export default function AccountCustomLinksForm(user: PagesRecord) {
   const [isLoading, setIsLoading] = useState(false);
   const [links, setLinks] = useState<LinkType[]>(user.links || []);
+  const [linkImgKey, setLinkImgKey] = useState("");
 
-  function save(formData: FormData) {
+  const storeImg = useCallback(async () => {
+    if (linkImgKey) {
+      await StoreImgKeys(linkImgKey, "customLink");
+    }
+  }, [linkImgKey]);
+
+  useEffect(() => {
+    storeImg();
+  }, [storeImg]);
+
+  function save(ev: React.FormEvent) {
+    ev.preventDefault();
     setIsLoading(true);
-    console.log(formData);
+
+    SavePageLinks(links)
+      .then(() => {
+        setIsLoading(false);
+        console.log("Links saved successfully.");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.error("Error saving links:", err);
+      });
   }
 
   function addNewLink() {
@@ -46,9 +70,37 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
     });
   }
 
+  function handleUpload(id: string, url: string) {
+    setLinks((prevLinks) => {
+      const newLinks = [...prevLinks];
+      newLinks.forEach((link) => {
+        if (link.id === id) {
+          link.icon = url;
+        }
+      });
+      return newLinks;
+    });
+  }
+
+  function handleLinkChange(
+    key: string,
+    ev: ChangeEvent<HTMLInputElement>,
+    prop: keyof LinkType
+  ) {
+    setLinks((prev) => {
+      const newLinks = [...prev];
+      newLinks.forEach((link) => {
+        if (link.id === key) {
+          link[prop] = ev.target.value;
+        }
+      });
+      return newLinks;
+    });
+  }
+
   return (
     <SectionBox>
-      <form action={save}>
+      <form>
         <h2 className="text-2xl font-bold text-primary mb-4">Custom Links</h2>
         <Button onClick={addNewLink} type="button" className="flex gap-2">
           <PlusCircle />
@@ -61,22 +113,53 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                 <div>
                   <GripVertical className="mr-1 cursor-pointer" />
                 </div>
-                <div className="text-center">
+                <div className="relative">
                   <label className="cursor-pointer">
-                    <Link className="text-primary bg-white flex min-w-[2em] rounded-full" />
+                    {l.icon ? (
+                      <Image
+                        className="w-[64px] h-[64px] object-cover rounded-full"
+                        src={l.icon}
+                        alt="icon"
+                        width={64}
+                        height={64}
+                        priority
+                      />
+                    ) : (
+                      <Camera className="text-primary bg-white flex min-w-[2em]" />
+                    )}
+
                     <UploadButton
                       endpoint="imageUploader"
-                      className="opacity-0 w-full h-full absolute inset-0"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       onClientUploadComplete={(res) => {
+                        handleUpload(l.id, res[0].url);
+                        setLinkImgKey(res[0].key);
+
                         console.log(res);
                       }}
                     />
                   </label>
                 </div>
+
                 <div className="grow">
-                  <input type="text" placeholder="title" />
-                  <input type="text" placeholder="subtitle (optional)" />
-                  <input type="text" placeholder="url" />
+                  <input
+                    value={l.title}
+                    onChange={(ev) => handleLinkChange(l.id, ev, "title")}
+                    type="text"
+                    placeholder="title"
+                  />
+                  <input
+                    value={l.subtitle}
+                    onChange={(ev) => handleLinkChange(l.id, ev, "subtitle")}
+                    type="text"
+                    placeholder="subtitle (optional)"
+                  />
+                  <input
+                    value={l.url}
+                    onChange={(ev) => handleLinkChange(l.id, ev, "url")}
+                    type="text"
+                    placeholder="url"
+                  />
                 </div>
               </div>
             ))}
@@ -84,7 +167,8 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
         </div>
         <div className="flex w-full mx-auto mt-8">
           <Button
-            type="submit"
+            type="button"
+            onClick={save}
             className="flex w-full md:w-1/2 xl:w-1/4 mx-auto mt-4 gap-2"
           >
             {isLoading ? (

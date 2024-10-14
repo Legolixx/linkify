@@ -151,13 +151,13 @@ const allbuttons: ButtonProps[] = [
 ];
 
 export default function AccountSocialForm(user: PagesRecord) {
-  const pageSavedButtonsArray = user.buttons;
+  const pageSavedButtonsArray = Array.isArray(user.buttons) ? user.buttons : [];
 
   const pageSavedButtonsInfo: ButtonProps[] = pageSavedButtonsArray
     .map((button: { key: string }) =>
       allbuttons.find((b) => b.id === button.key)
     )
-    .filter((b: ButtonProps): b is ButtonProps => b !== undefined);
+    .filter((b): b is ButtonProps => b !== undefined);
 
   const [activeButtons, setActiveButtons] =
     useState<ButtonProps[]>(pageSavedButtonsInfo);

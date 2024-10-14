@@ -3,6 +3,7 @@
 import { XataClient } from "@/lib/xata";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import { LinkType } from "@/components/forms/accountCustomLinks";
 
 const xata = new XataClient();
 
@@ -88,5 +89,32 @@ export async function SaveSocialButtons(formData: FormData) {
   } catch (error) {
     console.error("Failed to save social buttons:", error);
     return false;
+  }
+}
+
+export async function SavePageLinks(links: LinkType[]) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      throw new Error("No active session found.");
+    }
+
+    const page = await xata.db.pages
+      .filter({ owner: session.user.email })
+      .getMany();
+
+    if (!page || page.length === 0) {
+      throw new Error("Page not found for the user.");
+    }
+
+    const pageId = page[0].id;
+
+    await xata.db.pages.update(pageId, {
+      links: links,
+    });
+  } catch (error) {
+    console.error("Error saving links:", error);
+    throw error;
   }
 }
