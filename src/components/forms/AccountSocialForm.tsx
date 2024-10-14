@@ -217,7 +217,11 @@ export default function AccountSocialForm(user: PagesRecord) {
     <SectionBox>
       <form onSubmit={saveSocials}>
         <h2 className="text-2xl font-bold text-primary mb-4">Social Links</h2>
-        <ReactSortable list={activeButtons} setList={setActiveButtons}>
+        <ReactSortable
+          handle=".handle"
+          list={activeButtons}
+          setList={setActiveButtons}
+        >
           {activeButtons.map((b) => {
             const buttonData = pageSavedButtonsArray.find(
               (btn: { key: string }) => btn.key === b.id
@@ -225,7 +229,7 @@ export default function AccountSocialForm(user: PagesRecord) {
             return (
               <div key={b.id} className="mb-4 flex gap-2 items-center">
                 <div className="w-48 flex gap-1 md:gap-3 items-center">
-                  <GripVertical className="cursor-pointer text-primary h-4 w-4" />
+                  <GripVertical className="cursor-pointer text-primary h-4 w-4 handle" />
                   <div className="flex w-4 h-4 md:w-auto md:h-auto">
                     {b.iconsDark}
                   </div>

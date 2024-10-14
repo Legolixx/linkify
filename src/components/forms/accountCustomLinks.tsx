@@ -16,6 +16,7 @@ import { UploadButton } from "@/lib/uploadthing";
 import StoreImgKeys from "@/actions/storeImgKeys";
 import Image from "next/image";
 import { SavePageLinks } from "@/actions/accountAction";
+import { useToast } from "@/hooks/use-toast";
 
 export type LinkType = {
   id: string;
@@ -29,6 +30,7 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
   const [isLoading, setIsLoading] = useState(false);
   const [links, setLinks] = useState<LinkType[]>(user.links || []);
   const [linkImgKey, setLinkImgKey] = useState("");
+  const { toast } = useToast();
 
   const storeImg = useCallback(async () => {
     if (linkImgKey) {
@@ -47,7 +49,11 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
     SavePageLinks(links)
       .then(() => {
         setIsLoading(false);
-        console.log("Links saved successfully.");
+        toast({
+          title: "Success",
+          description: "Custom Links saved successfully.",
+          variant: "success",
+        });
       })
       .catch((err) => {
         setIsLoading(false);
@@ -107,10 +113,10 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
           <span>Add new</span>
         </Button>
         <div className="">
-          <ReactSortable list={links} setList={setLinks}>
+          <ReactSortable handle=".handle" list={links} setList={setLinks}>
             {links.map((l: LinkType) => (
               <div key={l.id} className="mt-8 flex gap-2 items-center">
-                <div>
+                <div className="handle">
                   <GripVertical className="mr-1 cursor-pointer" />
                 </div>
                 <div className="relative">
