@@ -8,7 +8,7 @@ const xata = new XataClient();
 
 export default async function StoreImgKeys(
   key: string, 
-  type: "avatar" | "background"
+  type: "avatar" | "background" | "customLink"
 ) {
   const session = await getServerSession(authOptions);
 

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 
 type LinkType = {
-  key: string;
+  id: string;
   title: string;
   subtitle?: string;
   icon: string;
@@ -36,7 +36,7 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
       return [
         ...prev,
         {
-          key: Date.now().toString(),
+          id: Date.now().toString(),
           title: "",
           subtitle: "",
           icon: "",
@@ -57,7 +57,7 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
         <div className="">
           <ReactSortable list={links} setList={setLinks}>
             {links.map((l: LinkType) => (
-              <div key={l.key} className="mt-8 flex gap-2 items-center">
+              <div key={l.id} className="mt-8 flex gap-2 items-center">
                 <div>
                   <GripVertical className="mr-1 cursor-pointer" />
                 </div>

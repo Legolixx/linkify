@@ -17,7 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { PagesRecord } from "@/lib/xata";
 
 type ButtonProps = {
-  key: string;
+  id: string;
   label: string;
   placeholder: string;
   icons: JSX.Element;
@@ -26,7 +26,7 @@ type ButtonProps = {
 
 const allbuttons: ButtonProps[] = [
   {
-    key: "email",
+    id: "email",
     label: "E-mail",
     icons: <Image src="/icons/email.svg" width={24} height={24} alt="email" />,
     iconsDark: (
@@ -35,7 +35,7 @@ const allbuttons: ButtonProps[] = [
     placeholder: "johndoe@example.com",
   },
   {
-    key: "instagram",
+    id: "instagram",
     label: "Instagram",
     icons: (
       <Image
@@ -56,7 +56,7 @@ const allbuttons: ButtonProps[] = [
     placeholder: "https://www.instagram.com/johndoe",
   },
   {
-    key: "facebook",
+    id: "facebook",
     label: "Facebook",
     icons: (
       <Image src="/icons/facebook.svg" width={24} height={24} alt="Facebook" />
@@ -72,7 +72,7 @@ const allbuttons: ButtonProps[] = [
     placeholder: "https://www.facebook.com/johndoe",
   },
   {
-    key: "discord",
+    id: "discord",
     label: "Discord",
     icons: (
       <Image src="/icons/discord.svg" width={24} height={24} alt="discord" />
@@ -88,7 +88,7 @@ const allbuttons: ButtonProps[] = [
     placeholder: "https://discord.com/users/johndoe",
   },
   {
-    key: "tiktok",
+    id: "tiktok",
     label: "Tiktok",
     icons: (
       <Image src="/icons/tiktok.svg" width={24} height={24} alt="tiktok" />
@@ -99,7 +99,7 @@ const allbuttons: ButtonProps[] = [
     placeholder: "https://www.tiktok.com/@johndoe",
   },
   {
-    key: "whatsapp",
+    id: "whatsapp",
     label: "Whatsapp",
     icons: (
       <Image src="/icons/whatsApp.svg" width={24} height={24} alt="whatsapp" />
@@ -115,7 +115,7 @@ const allbuttons: ButtonProps[] = [
     placeholder: "+55 (00) 00000 0000 ",
   },
   {
-    key: "github",
+    id: "github",
     label: "Github",
     icons: (
       <Image src="/icons/github.svg" width={24} height={24} alt="github" />
@@ -126,14 +126,14 @@ const allbuttons: ButtonProps[] = [
     placeholder: "https://github.com/johndoe",
   },
   {
-    key: "x",
+    id: "x",
     label: "Twitter",
     icons: <Image src="/icons/x.svg" width={24} height={24} alt="X" />,
     iconsDark: <Image src="/iconsDark/x.svg" width={24} height={24} alt="X" />,
     placeholder: "https://www.twitter.com/johndoe",
   },
   {
-    key: "telegram",
+    id: "telegram",
     label: "Telegram",
     icons: (
       <Image src="/icons/telegram.svg" width={24} height={24} alt="telegram" />
@@ -155,7 +155,7 @@ export default function AccountSocialForm(user: PagesRecord) {
 
   const pageSavedButtonsInfo: ButtonProps[] = pageSavedButtonsArray
     .map((button: { key: string }) =>
-      allbuttons.find((b) => b.key === button.key)
+      allbuttons.find((b) => b.id === button.key)
     )
     .filter((b: ButtonProps): b is ButtonProps => b !== undefined);
 
@@ -179,10 +179,10 @@ export default function AccountSocialForm(user: PagesRecord) {
 
     activeButtons.forEach((button) => {
       const inputElement = document.querySelector(
-        `input[name="${button.key}"]`
+        `input[name="${button.id}"]`
       ) as HTMLInputElement;
       if (inputElement) {
-        formData.append(button.key, inputElement.value);
+        formData.append(button.id, inputElement.value);
       }
     });
 
@@ -200,7 +200,7 @@ export default function AccountSocialForm(user: PagesRecord) {
 
   function removeButton(b: ButtonProps) {
     setActiveButtons((prevButtons) => {
-      return prevButtons.filter((button) => button.key !== b.key);
+      return prevButtons.filter((button) => button.id !== b.id);
     });
     toast({
       title: "Success",
@@ -210,7 +210,7 @@ export default function AccountSocialForm(user: PagesRecord) {
   }
 
   const availableButtons = allbuttons.filter(
-    (b1) => !activeButtons.find((b2) => b1.key === b2.key)
+    (b1) => !activeButtons.find((b2) => b1.id === b2.id)
   );
 
   return (
@@ -220,10 +220,10 @@ export default function AccountSocialForm(user: PagesRecord) {
         <ReactSortable list={activeButtons} setList={setActiveButtons}>
           {activeButtons.map((b) => {
             const buttonData = pageSavedButtonsArray.find(
-              (btn: { key: string }) => btn.key === b.key
+              (btn: { key: string }) => btn.key === b.id
             );
             return (
-              <div key={b.key} className="mb-4 flex gap-2 items-center">
+              <div key={b.id} className="mb-4 flex gap-2 items-center">
                 <div className="w-48 flex gap-1 md:gap-3 items-center">
                   <GripVertical className="cursor-pointer text-primary h-4 w-4" />
                   <div className="flex w-4 h-4 md:w-auto md:h-auto">
@@ -236,7 +236,7 @@ export default function AccountSocialForm(user: PagesRecord) {
                   defaultValue={buttonData ? buttonData.value : ""}
                   style={{ marginBottom: 0 }}
                   placeholder={b.placeholder}
-                  name={b.key}
+                  name={b.id}
                 />
                 <Button
                   type="button"
@@ -255,7 +255,7 @@ export default function AccountSocialForm(user: PagesRecord) {
             <Button
               type="button"
               onClick={() => addInputToSocial(b)}
-              key={b.key}
+              key={b.id}
               className="flex items-center gap-2"
             >
               <div>{b.icons}</div>

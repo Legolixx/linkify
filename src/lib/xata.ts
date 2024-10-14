@@ -97,6 +97,7 @@ const tables = [
         defaultValue: "teste@teste.com",
       },
       { name: "img_avatar_keys", type: "multiple" },
+      { name: "custom_link_keys", type: "multiple" },
     ],
   },
 ] as const;
