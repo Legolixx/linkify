@@ -25,7 +25,7 @@ export default async function NavBar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2" prefetch={false}>
           <LinkIcon className="text-primary h-6 w-6" />
-          <span className="text-primary font-bold tracking-wider">linkium</span>
+          <span className="text-primary font-bold tracking-wider">Linkium</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           <Link

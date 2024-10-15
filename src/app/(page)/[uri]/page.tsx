@@ -130,7 +130,7 @@ export default async function UserPage({ params }: { params: UserPageParams }) {
       <div className="max-w-xs mx-auto text-center my-2">
         <p className="text-primary">{pageData.bio}</p>
       </div>
-      <div className="flex gap-2 justify-center mt-4">
+      <div className="flex gap-2 justify-center m-4 ">
         {buttons.map((button: { key: string; value: string }) => (
           <Link
             target="_blank"
