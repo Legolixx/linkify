@@ -10,12 +10,10 @@ interface UserPageParams {
 const xata = new XataClient();
 
 const buttonsIcons = {
-  email: (
-    <Image src="iconsdark/email.svg" width={24} height={24} alt="email" />
-  ),
+  email: <Image src="/iconsDark/email.svg" width={24} height={24} alt="email" />,
   instagram: (
     <Image
-      src="/iconsdark/instagram.svg"
+      src="/iconsDark/instagram.svg"
       width={24}
       height={24}
       alt="instagram"
@@ -23,33 +21,33 @@ const buttonsIcons = {
   ),
   facebook: (
     <Image
-      src="/iconsdark/facebook.svg"
+      src="/iconsDark/facebook.svg"
       width={24}
       height={24}
       alt="Facebook"
     />
   ),
   discord: (
-    <Image src="/iconsdark/discord.svg" width={24} height={24} alt="discord" />
+    <Image src="/iconsDark/discord.svg" width={24} height={24} alt="discord" />
   ),
   tiktok: (
-    <Image src="/iconsdark/tiktok.svg" width={24} height={24} alt="tiktok" />
+    <Image src="/iconsDark/tiktok.svg" width={24} height={24} alt="tiktok" />
   ),
   whatsapp: (
     <Image
-      src="/iconsdark/whatsApp.svg"
+      src="/iconsDark/whatsApp.svg"
       width={24}
       height={24}
       alt="whatsapp"
     />
   ),
   github: (
-    <Image src="/iconsdark/github.svg" width={24} height={24} alt="github" />
+    <Image src="/iconsDark/github.svg" width={24} height={24} alt="github" />
   ),
-  x: <Image src="/iconsdark/x.svg" width={24} height={24} alt="X" />,
+  x: <Image src="/iconsDark/x.svg" width={24} height={24} alt="X" />,
   telegram: (
     <Image
-      src="/iconsdark/telegram.svg"
+      src="/iconsDark/telegram.svg"
       width={24}
       height={24}
       alt="telegram"
@@ -61,7 +59,7 @@ type ButtonKey = keyof typeof buttonsIcons;
 
 function buttonLink(key: string, value: string) {
   if (key === "whatsapp") {
-    return "tel:" + value;
+    return `https://wa.me/${value.replace(/\D/g, "")}`;
   }
   if (key === "email") {
     return "mailto:" + value;
