@@ -24,7 +24,7 @@ type ButtonProps = {
   iconsDark: JSX.Element;
 };
 
-const allbuttons: ButtonProps[] = [
+export const allbuttons: ButtonProps[] = [
   {
     id: "email",
     label: "E-mail",

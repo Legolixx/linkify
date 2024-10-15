@@ -5,6 +5,7 @@ import {
   UserRoundPen,
   LogOut,
   AlignJustify,
+  LinkIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,10 +37,11 @@ export default function SideBar({
       ? "text-blue-500 font-semibold"
       : "text-black md:text-white";
   };
+
   const SidebarContent = () => (
     <div className="flex flex-col justify-between min-h-full">
       <div>
-        <div className="flex flex-col gap-3 items-center mb-16 mt-8">
+        <div className="flex flex-col gap-3 items-center mb-10 mt-8">
           <div className="w-32 h-32 rounded-full shadow-lg shadow-black/50 overflow-hidden bg-cover bg-center">
             <Image
               className="w-full h-full object-cover"
@@ -50,7 +52,16 @@ export default function SideBar({
               priority
             />
           </div>
-          <p className="text-[1em] text-center">{user.name}</p>
+          <p className="text-[1em] text-center mb-10">{user.name}</p>
+          <Link
+            target="_blank"
+            href={"/" + userName}
+            className="flex text-center items-center justify-center gap-1"
+          >
+            <LinkIcon size={20} />
+            <span className="text-xl">/</span>
+            <span>{userName}</span>
+          </Link>
         </div>
         <nav className="flex flex-col items-center gap-10">
           <Link
@@ -90,7 +101,7 @@ export default function SideBar({
 
   return (
     <>
-      <aside className="hidden md:flex bg-primary w-1/4 md:w-1/5 xl:w-1/6 p-4 text-white flex-col justify-between min-h-screen">
+      <aside className="hidden md:flex bg-primary w-1/4 md:w-1/5 xl:w-1/6 p-4 text-white flex-col justify-between max-h-screen sticky top-0">
         <SidebarContent />
       </aside>
 
