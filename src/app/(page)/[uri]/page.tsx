@@ -9,7 +9,7 @@ interface UserPageParams {
 
 const xata = new XataClient();
 
-export const buttonsIcons = {
+const buttonsIcons = {
   email: (
     <Image src="/iconsdark/email.svg" width={24} height={24} alt="email" />
   ),
@@ -112,7 +112,9 @@ export default async function UserPage({ params }: { params: UserPageParams }) {
           priority
         />
       </div>
-      <h2 className="text-lg text-center mb-1 text-primary">{pageData.displayName}</h2>
+      <h2 className="text-lg text-center mb-1 text-primary">
+        {pageData.displayName}
+      </h2>
       <h3 className="flex text-md text-muted-foreground gap-2 justify-center items-center">
         <MapPin size={18} />
         <span>{pageData.location}</span>
@@ -150,7 +152,13 @@ export default async function UserPage({ params }: { params: UserPageParams }) {
             >
               <div className="bg-slate-700 aspect-square relative -left-4 w-16 h-16 flex items-center justify-center rounded-md">
                 {link.icon ? (
-                  <Image className="rounded-md" src={link.icon} alt="icon" width={64} height={64} />
+                  <Image
+                    className="rounded-md"
+                    src={link.icon}
+                    alt="icon"
+                    width={64}
+                    height={64}
+                  />
                 ) : (
                   <LinkIcon size={32} />
                 )}
