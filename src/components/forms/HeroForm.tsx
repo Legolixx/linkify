@@ -38,13 +38,13 @@ export default function HeroForm({ user }: HeroFormProps) {
       onSubmit={handleSubmit}
       className="inline-flex items-center shadow-lg shadow-gray-500/20"
     >
-      <span className="bg-white py-2 pl-4">linkify.to/</span>
+      <span className="bg-white py-2 pl-4">linkium.to/</span>
       <input
         name="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         type="text"
-        className="py-2"
+        className="py-2 relative -bottom-1 left-1"
         placeholder="username"
       />
       <Button className="py-[1.5em] px-6" type="submit">

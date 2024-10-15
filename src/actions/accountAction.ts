@@ -81,8 +81,6 @@ export async function SaveSocialButtons(formData: FormData) {
 
     const dataToUpdate = { buttons: buttonsToSave };
 
-    console.log(dataToUpdate);
-
     await xata.db.pages.update(pageId, dataToUpdate);
 
     return true;

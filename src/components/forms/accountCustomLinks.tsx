@@ -145,8 +145,6 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                       onClientUploadComplete={(res) => {
                         handleUpload(l.id, res[0].url);
                         setLinkImgKey(res[0].key);
-
-                        console.log(res);
                       }}
                     />
                   </label>
