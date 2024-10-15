@@ -11,7 +11,7 @@ const xata = new XataClient();
 
 const buttonsIcons = {
   email: (
-    <Image src="/iconsdark/email.svg" width={24} height={24} alt="email" />
+    <Image src="iconsdark/email.svg" width={24} height={24} alt="email" />
   ),
   instagram: (
     <Image
@@ -58,6 +58,16 @@ const buttonsIcons = {
 };
 
 type ButtonKey = keyof typeof buttonsIcons;
+
+function buttonLink(key: string, value: string) {
+  if (key === "whatsapp") {
+    return "tel:" + value;
+  }
+  if (key === "email") {
+    return "mailto:" + value;
+  }
+  return value;
+}
 
 export default async function UserPage({ params }: { params: UserPageParams }) {
   const uri = params.uri;
@@ -127,7 +137,7 @@ export default async function UserPage({ params }: { params: UserPageParams }) {
           <Link
             target="_blank"
             key={button.key}
-            href={button.value}
+            href={buttonLink(button.key, button.value)}
             className="rounded-full border border-primary p-2"
           >
             {button.key in buttonsIcons
