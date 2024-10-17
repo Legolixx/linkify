@@ -83,10 +83,10 @@ export default function AccountSettingsForm({
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: error as string,
-        variant: "destructive",
-      });
+    title: "Error",
+    description: error instanceof Error ? error.message : String(error),
+    variant: "destructive",
+  });
     } finally {
       setIsLoading(false);
       router.refresh();

@@ -14,22 +14,19 @@ export async function CheckAndDeleteImage(email: string, type: "avatar" | "backg
     .getFirst();
 
   if (!userRecord) {
-    throw new Error("Usuário não encontrado ou sem imagens.");
+    return
   }
 
-  // Define qual campo da tabela será atualizado com base no tipo
   const columnToCheck = type === "background" ? "img_keys" : "img_avatar_keys";
 
   const imgKeys = userRecord[columnToCheck];
 
   if (imgKeys && imgKeys.length > 1) {
-    const imagesToDelete = imgKeys.slice(0, -1); // Pega todas as imagens, exceto a última
-    const lastImageKey = imgKeys[imgKeys.length - 1]; // Pega a última imagem
+    const imagesToDelete = imgKeys.slice(0, -1);
+    const lastImageKey = imgKeys[imgKeys.length - 1];
 
-    // Deleta as imagens excedentes
     await utapi.deleteFiles(imagesToDelete);
 
-    // Atualiza o registro mantendo apenas a última imagem
     const updatedRecord = await xata.db.uploads_by_user.update(
       userRecord.id,
       {
