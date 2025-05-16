@@ -182,7 +182,7 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                     placeholder="subtitle (optional)"
                   />
                   <InputMask
-                    mask="(99) 99999-9999"
+                    mask="+55 (99) 99999-9999"
                     value={l.phone}
                     onChange={(ev) => handleLinkChange(l.id, ev, "phone")}
                   >
