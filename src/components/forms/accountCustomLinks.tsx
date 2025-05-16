@@ -35,7 +35,6 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
   const [links, setLinks] = useState<LinkType[]>(user.links || []);
   const [linkImgKey, setLinkImgKey] = useState("");
   const { toast } = useToast();
-
   const storeImg = useCallback(async () => {
     if (linkImgKey) {
       await StoreImgKeys(linkImgKey, "customLink");
@@ -54,7 +53,7 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
     const formattedLinks = links.map((link) => {
       const phone = link.phone.replace(/\D/g, ""); // remove não números
       const encodedMsg = encodeURIComponent(link.message || "");
-      const whatsappUrl = `https://wa.me/${phone}${
+      const whatsappUrl = `https://wa.me/55${phone}${
         encodedMsg ? `?text=${encodedMsg}` : ""
       }`;
 
@@ -63,6 +62,8 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
         url: whatsappUrl,
       };
     });
+
+
 
     SavePageLinks(formattedLinks)
       .then(() => {
