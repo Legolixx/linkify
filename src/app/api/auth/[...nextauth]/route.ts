@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { XataAdapter } from "@auth/xata-adapter";
+import { XataAdapter } from "@next-auth/xata-adapter";
 import { XataClient } from "@/lib/xata";
 
 const client = new XataClient();
