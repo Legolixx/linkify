@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { PagesRecord } from "@/lib/xata";
@@ -18,13 +19,15 @@ import StoreImgKeys from "@/actions/storeImgKeys";
 import Image from "next/image";
 import { SavePageLinks } from "@/actions/accountAction";
 import { useToast } from "@/hooks/use-toast";
+import InputMask from "react-input-mask";
 
 export type LinkType = {
   id: string;
   title: string;
   subtitle?: string;
   icon: string;
-  url: string;
+  phone: string; // novo
+  message: string; // novo
 };
 
 export default function AccountCustomLinksForm(user: PagesRecord) {
@@ -47,18 +50,32 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
     ev.preventDefault();
     setIsLoading(true);
 
-    SavePageLinks(links)
+    // Monta os links do WhatsApp com base no telefone e mensagem
+    const formattedLinks = links.map((link) => {
+      const phone = link.phone.replace(/\D/g, ""); // remove não números
+      const encodedMsg = encodeURIComponent(link.message || "");
+      const whatsappUrl = `https://wa.me/${phone}${
+        encodedMsg ? `?text=${encodedMsg}` : ""
+      }`;
+
+      return {
+        ...link,
+        url: whatsappUrl,
+      };
+    });
+
+    SavePageLinks(formattedLinks)
       .then(() => {
         setIsLoading(false);
         toast({
           title: "Success",
-          description: "Custom Links saved successfully.",
+          description: "Links do WhatsApp salvos com sucesso!",
           variant: "success",
         });
       })
       .catch((err) => {
         setIsLoading(false);
-        console.error("Error saving links:", err);
+        console.error("Erro ao salvar links:", err);
       });
   }
 
@@ -71,7 +88,8 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
           title: "",
           subtitle: "",
           icon: "",
-          url: "",
+          phone: "",
+          message: "",
         },
       ];
     });
@@ -163,11 +181,26 @@ export default function AccountCustomLinksForm(user: PagesRecord) {
                     type="text"
                     placeholder="subtitle (optional)"
                   />
+                  <InputMask
+                    mask="(99) 99999-9999"
+                    value={l.phone}
+                    onChange={(ev) => handleLinkChange(l.id, ev, "phone")}
+                  >
+                    
+                    {(inputProps: any) => (
+                      <input
+                        {...inputProps}
+                        type="text"
+                        placeholder="Telefone com DDD"
+                      />
+                    )}
+                  </InputMask>
+
                   <input
-                    value={l.url}
-                    onChange={(ev) => handleLinkChange(l.id, ev, "url")}
+                    value={l.message}
+                    onChange={(ev) => handleLinkChange(l.id, ev, "message")}
                     type="text"
-                    placeholder="url"
+                    placeholder="mensagem padrão do WhatsApp"
                   />
                 </div>
                 <div>
